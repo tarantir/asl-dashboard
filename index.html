@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Loading...</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff41;
+            --secondary: #ff6b00;
+            --bg-dark: #0a0e1a;
+            --bg-panel: #151b2e;
+            --border: #1e2942;
+            --text-primary: #e8f4f8;
+            --text-dim: #7a8ea8;
+            --glow: #00ff41;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridScroll 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridScroll {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Scanline effect */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                transparent 50%,
+                rgba(0, 255, 65, 0.02) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1000;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .callsign {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-shadow: 
+                0 0 20px var(--glow),
+                0 0 40px var(--glow),
+                0 0 60px var(--glow);
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 
+                    0 0 20px var(--glow),
+                    0 0 40px var(--glow),
+                    0 0 60px var(--glow);
+            }
+            to {
+                text-shadow: 
+                    0 0 30px var(--glow),
+                    0 0 60px var(--glow),
+                    0 0 90px var(--glow);
+            }
+        }
+
+        .node-designation {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            letter-spacing: 0.3em;
+            font-family: 'Orbitron', monospace;
+        }
+
+        /* Status panel */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .panel {
+            background: var(--bg-panel);
+            border: 2px solid var(--border);
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 65, 0.1),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-out backwards;
+        }
+
+        .panel:nth-child(1) { animation-delay: 0.1s; }
+        .panel:nth-child(2) { animation-delay: 0.2s; }
+        .panel:nth-child(3) { animation-delay: 0.3s; }
+        .panel:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent,
+                var(--primary),
+                transparent
+            );
+            animation: borderSweep 3s ease-in-out infinite;
+        }
+
+        @keyframes borderSweep {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .panel-header {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            color: var(--secondary);
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .frequency {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: var(--primary);
+            text-align: center;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 10px var(--glow);
+        }
+
+        .freq-label {
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-top: 0.5rem;
+            letter-spacing: 0.2em;
+        }
+
+        .info-value {
+            color: var(--primary);
+            font-family: 'Orbitron', monospace;
+        }
+
+        .clock-display {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-align: center;
+            letter-spacing: 0.2em;
+            text-shadow: 0 0 15px var(--glow);
+            margin-top: 1rem;
+        }
+
+        /* Navigation */
+        .nav-container {
+            margin: 3rem 0;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .nav-section {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .nav-section-title {
+            font-family: 'Orbitron', monospace;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .nav-links a::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .nav-links a:hover::before {
+            transform: translateX(5px);
+        }
+
+        /* Main panel */
+        .main-panel {
+            background: var(--bg-panel);
+            border: 2px solid var(--border);
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-item {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* Highlighting */
+        .highlight {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .highlight-secondary {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .callsign {
+                font-size: 2.5rem;
+            }
+
+            .node-designation {
+                font-size: 0.9rem;
+            }
+
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="callsign" id="callsign">N0CALL</div>
+            <div class="node-designation" id="organization">Amateur Radio Digital Dashboard</div>
+        </header>
+
+        <div class="status-grid">
+            <div class="panel">
+                <div class="panel-header">Radio ID</div>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <div class="frequency" id="dmrId1">1234567</div>
+                    <div class="freq-label">DMR ID (PRIMARY)</div>
+                </div>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <div class="frequency" id="dmrId2">1234568</div>
+                    <div class="freq-label">DMR ID (SECONDARY)</div>
+                </div>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <div class="info-value" style="font-size: 1.1rem;" id="nxdnId">--</div>
+                    <div class="freq-label">NXDN ID</div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">Primary Node</div>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <div class="frequency" id="primaryASL">123456</div>
+                    <div class="freq-label">ALLSTARLINK</div>
+                </div>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <div class="info-value" style="font-size: 1.1rem;" id="echolinkNode">654321</div>
+                    <div class="freq-label">ECHOLINK</div>
+                </div>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <div class="info-value" style="font-size: 1.1rem;" id="hoipInbound">99999</div>
+                    <div class="freq-label">HOIP INBOUND RF</div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">Time</div>
+                <div class="clock-display" id="clock">--:--:--</div>
+                <div style="text-align: center; margin-top: 0.5rem;">
+                    <div class="freq-label">UTC</div>
+                </div>
+                <div class="clock-display" id="localClock" style="font-size: 1.5rem; margin-top: 1rem;">--:--:--</div>
+                <div style="text-align: center; margin-top: 0.5rem;">
+                    <div class="freq-label">LOCAL TIME</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-container">
+            <div class="nav-grid" id="navGrid">
+                <!-- Navigation will be populated dynamically -->
+            </div>
+        </div>
+
+        <div class="main-panel">
+            <div class="panel-header">Node Information</div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Callsign</div>
+                    <div class="info-value" id="nodeInfoCallsign">N0CALL</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Location</div>
+                    <div class="info-value" id="nodeInfoLocation">City, ST</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Network</div>
+                    <div class="info-value" id="nodeInfoNetwork">AllStarLink 3 • DVSwitch</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Primary DMR ID</div>
+                    <div class="info-value" id="nodeInfoDMR">1234567</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Primary ASL Node</div>
+                    <div class="info-value" id="nodeInfoASL">123456</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">EchoLink Node</div>
+                    <div class="info-value" id="nodeInfoEcholink">654321</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">APRS SSID</div>
+                    <div class="info-value" id="aprsSSID">N0CALL-13</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <div class="info-label" style="margin-bottom: 1rem;">Connection Instructions</div>
+                <div class="info-value" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-primary);" id="connectionInstructions">
+                    <!-- Connection instructions will be populated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <footer id="footer">
+            <div>73 DE <span id="footerCallsign">N0CALL</span> • <span id="footerOrg">Your Organization</span></div>
+            <div style="margin-top: 0.5rem; font-size: 0.8rem;">
+                <a href="#" id="footerWebsite" style="color: var(--primary); text-decoration: none;">yourwebsite.com</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Load configuration and populate page
+        async function loadConfig() {
+            try {
+                const response = await fetch('config.json');
+                const config = await response.json();
+                populatePage(config);
+            } catch (error) {
+                console.error('Error loading configuration:', error);
+                // Fallback to default values if config fails to load
+            }
+        }
+
+        function populatePage(config) {
+            // Update page title
+            document.getElementById('pageTitle').textContent = 
+                `${config.station.callsign} • ${config.station.organization.split('|')[0].trim()} • ASL ${config.station.primaryNodes.asl} • EchoLink ${config.station.primaryNodes.echolink}`;
+
+            // Update header
+            document.getElementById('callsign').textContent = config.station.callsign;
+            document.getElementById('organization').textContent = config.station.organization;
+
+            // Update Radio ID panel
+            document.getElementById('dmrId1').textContent = config.statusPanels.radioId.dmrId1;
+            document.getElementById('dmrId2').textContent = config.statusPanels.radioId.dmrId2;
+            document.getElementById('nxdnId').textContent = config.statusPanels.radioId.nxdnId || '--';
+
+            // Update primary nodes
+            document.getElementById('primaryASL').textContent = config.station.primaryNodes.asl;
+            document.getElementById('echolinkNode').textContent = config.station.primaryNodes.echolink;
+            document.getElementById('hoipInbound').textContent = config.station.primaryNodes.hoipInbound;
+
+            // Update node information panel
+            document.getElementById('nodeInfoCallsign').textContent = config.station.callsign;
+            document.getElementById('nodeInfoDMR').textContent = config.statusPanels.radioId.dmrId1;
+            document.getElementById('nodeInfoASL').textContent = config.station.primaryNodes.asl;
+            document.getElementById('nodeInfoEcholink').textContent = config.station.primaryNodes.echolink;
+            document.getElementById('aprsSSID').textContent = config.station.aprsSSID || 'N0CALL-13';
+            document.getElementById('nodeInfoLocation').textContent = config.station.location;
+            document.getElementById('nodeInfoNetwork').textContent = config.station.network;
+
+            // Update connection instructions
+            let instructionsHTML = '';
+            Object.values(config.connectionInstructions).forEach(instr => {
+                instructionsHTML += `<strong>${instr.label}:</strong> ${instr.instruction}<br>`;
+            });
+            instructionsHTML += 'Access node monitoring and control through the tools in the navigation menu above.';
+            document.getElementById('connectionInstructions').innerHTML = instructionsHTML;
+
+            // Update navigation
+            const navGrid = document.getElementById('navGrid');
+            navGrid.innerHTML = '';
+            
+            Object.values(config.navigation).forEach(section => {
+                const navSection = document.createElement('div');
+                navSection.className = 'nav-section';
+                
+                const title = document.createElement('div');
+                title.className = 'nav-section-title';
+                title.textContent = section.title;
+                navSection.appendChild(title);
+                
+                const linksList = document.createElement('ul');
+                linksList.className = 'nav-links';
+                
+                section.links.forEach(link => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = link.url;
+                    a.target = '_blank';
+                    a.textContent = link.label;
+                    li.appendChild(a);
+                    linksList.appendChild(li);
+                });
+                
+                navSection.appendChild(linksList);
+                navGrid.appendChild(navSection);
+            });
+
+            // Update footer
+            document.getElementById('footerCallsign').textContent = config.footer.callsign;
+            document.getElementById('footerOrg').textContent = config.footer.organization;
+            const websiteLink = document.getElementById('footerWebsite');
+            websiteLink.textContent = config.footer.website;
+            websiteLink.href = `https://${config.footer.website}`;
+            websiteLink.target = '_blank';
+        }
+
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            
+            // UTC time
+            const utcHours = String(now.getUTCHours()).padStart(2, '0');
+            const utcMinutes = String(now.getUTCMinutes()).padStart(2, '0');
+            const utcSeconds = String(now.getUTCSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${utcHours}:${utcMinutes}:${utcSeconds}`;
+            
+            // Local time
+            const localHours = String(now.getHours()).padStart(2, '0');
+            const localMinutes = String(now.getMinutes()).padStart(2, '0');
+            const localSeconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('localClock').textContent = `${localHours}:${localMinutes}:${localSeconds}`;
+        }
+
+        // Initialize
+        loadConfig();
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>

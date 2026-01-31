@@ -1,0 +1,125 @@
+{
+  "station": {
+    "callsign": "N0CALL",
+    "organization": "Amateur Radio Digital Dashboard",
+    "primaryNodes": {
+      "asl": "123456",
+      "echolink": "654321",
+      "hoipInbound": "99999"
+    },
+    "additionalNodes": ["123457", "123458", "123459", "123460"],
+    "aprsSSID": "N0CALL-13",
+    "location": "City, ST",
+    "network": "AllStarLink 3 • DVSwitch"
+  },
+  "statusPanels": {
+    "radioId": {
+      "dmrId1": "1234567",
+      "dmrId2": "1234568",
+      "nxdnId": "--"
+    }
+  },
+  "connectionInstructions": {
+    "allstarlink": {
+      "label": "AllStarLink",
+      "instruction": "Dial <span class=\"highlight-secondary\">*3</span><span class=\"highlight\">123456</span> from any ASL node"
+    },
+    "echolink": {
+      "label": "EchoLink",
+      "instruction": "Connect to node <span class=\"highlight\">654321</span> or <span class=\"highlight\">N0CALL-L</span>"
+    },
+    "hoip": {
+      "label": "HOIP",
+      "instruction": "Inbound RF Link <span class=\"highlight\">99999</span> • Outbound dial: <span class=\"highlight-secondary\">*47</span><span class=\"highlight\">EXTENSION#</span>"
+    },
+    "autopatch": {
+      "label": "Autopatch",
+      "instruction": "Dial out: <span class=\"highlight-secondary\">*61</span><span class=\"highlight\">PHONE#</span> • Terminate call: <span class=\"highlight-secondary\">*62</span>"
+    },
+    "reverseAutopatch": {
+      "label": "Reverse Autopatch",
+      "instruction": "<span class=\"highlight\">555.123.4567</span> Extension <span class=\"highlight\">10</span>"
+    },
+    "dtmfCommands": {
+      "label": "DTMF Commands",
+      "instruction": "<span class=\"highlight-secondary\">*1</span><span class=\"highlight\">NODE#</span> = Disconnect | <span class=\"highlight-secondary\">*3</span><span class=\"highlight\">NODE#</span> = Connect | <span class=\"highlight-secondary\">*99</span> = PTT Enable | <span class=\"highlight-secondary\">#99</span> = PTT Disable"
+    }
+  },
+  "navigation": {
+    "nodeTools": {
+      "title": "Node Tools",
+      "links": [
+        {"label": "Supermon", "url": "https://123456.nodes.allstarlink.org/supermon/"},
+        {"label": "DVSwitch", "url": "https://123456.nodes.allstarlink.org/dvswitch/"},
+        {"label": "AllScan", "url": "https://123456.nodes.allstarlink.org/allscan/"},
+        {"label": "SkywarnPlus-NG", "url": "https://123456.nodes.allstarlink.org/skywarnplus-ng/"},
+        {"label": "APRS Info (APRS.fi)", "url": "https://aprs.fi/info/?call=n0call*"}
+      ]
+    },
+    "aslNodes": {
+      "title": "ASL Nodes",
+      "links": [
+        {"label": "Node 123456", "url": "https://123456.nodes.allstarlink.org/allmon3/#123456"},
+        {"label": "Node 123457", "url": "https://123456.nodes.allstarlink.org/allmon3/#123457"},
+        {"label": "Node 123458", "url": "https://123456.nodes.allstarlink.org/allmon3/#123458"},
+        {"label": "Node 123459", "url": "https://123456.nodes.allstarlink.org/allmon3/#123459"},
+        {"label": "Node 123460", "url": "https://123456.nodes.allstarlink.org/allmon3/#123460"}
+      ]
+    },
+    "affiliateNodes": {
+      "title": "Affiliate Nodes",
+      "links": [
+        {"label": "W0XYZ • 111111", "url": "https://stats.allstarlink.org/stats/111111"},
+        {"label": "K0ABC • 222222", "url": "https://stats.allstarlink.org/stats/222222"},
+        {"label": "N0CALL • 123456", "url": "https://stats.allstarlink.org/stats/123456"}
+      ]
+    },
+    "allstarlinkNetwork": {
+      "title": "Allstarlink Network",
+      "links": [
+        {"label": "Node List", "url": "https://www.allstarlink.org/nodelist/"},
+        {"label": "Account", "url": "https://www.allstarlink.org/portal/account.php"},
+        {"label": "Manage Servers", "url": "https://www.allstarlink.org/portal/servers.php"},
+        {"label": "Manage Nodes", "url": "https://www.allstarlink.org/portal/nodes.php"}
+      ]
+    },
+    "dmrNetworks": {
+      "title": "DMR Networks",
+      "links": [
+        {"label": "Your Profile [BM]", "url": "https://brandmeister.network/index.php?page=profile&call=N0CALL"},
+        {"label": "ASL3 Node Self-care [BM]", "url": "https://brandmeister.network/?page=device-edit&id=123456799"},
+        {"label": "TGIF Network", "url": "https://tgif.network/index.php"}
+      ]
+    },
+    "dstarNetwork": {
+      "title": "D-STAR Network",
+      "links": [
+        {"label": "D-STAR Management", "url": "https://regist.dstargateway.org/Dstar.do"},
+        {"label": "D-STAR Users", "url": "https://dstarusers.org/"},
+        {"label": "D-STAR Reflectors", "url": "http://dstarinfo.com/reflectors.aspx"}
+      ]
+    },
+    "otherResources": {
+      "title": "Other Resources",
+      "links": [
+        {"label": "QRZ Lookup", "url": "https://www.qrz.com/db/N0CALL"},
+        {"label": "RadioID Lookup", "url": "https://www.radioid.net/search?callsign=N0CALL"},
+        {"label": "HOIP Phone Book", "url": "https://hamsoverip.com/phonebook"}
+      ]
+    },
+    "ampr": {
+      "title": "AMPR / 44Net",
+      "links": [
+        {"label": "AMPR Portal", "url": "https://portal.ampr.org/"},
+        {"label": "44Net Connect", "url": "https://connect.44net.cloud/"}
+      ]
+    }
+  },
+  "footer": {
+    "callsign": "N0CALL",
+    "organization": "Your Organization",
+    "primaryNode": "123456",
+    "echolinkNode": "654321",
+    "website": "yourwebsite.com"
+  }
+}
