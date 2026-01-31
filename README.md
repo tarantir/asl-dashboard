@@ -2,7 +2,7 @@
 
 A modern, configuration-driven web dashboard for amateur radio stations. Features a cyberpunk-inspired terminal aesthetic with real-time clock displays, dynamic node information, and comprehensive network resource links.
 
-![Dashboard Preview](screenshot.png)
+![Dashboard Preview](Screenshot.png)
 
 ## Features
 
